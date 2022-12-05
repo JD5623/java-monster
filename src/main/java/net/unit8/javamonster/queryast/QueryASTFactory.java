@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 
 public class QueryASTFactory {
-    private static final Set<Class<? extends GraphQLType>> TABLE_TYPES = Set.of(
+    private static final Set<Class<? extends GraphQLType>> TABLE_TYPES = new java.util.HashSet<>(java.util.Arrays.asList(
             GraphQLObjectType.class,
             GraphQLUnionType.class,
             GraphQLInterfaceType.class
-    );
+    ));
 
 
     private GraphQLCodeRegistry codeRegistry;
@@ -50,9 +50,11 @@ public class QueryASTFactory {
         GraphQLType gqlType = stripNonNullType(fieldDefinition.getType());
 
         // args
+        // Map<String, Value> args = queryASTNode.getArguments().stream()
+        //         .map(argument -> Map.entry(argument.getName(), argument.getValue()))
+        //         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         Map<String, Value> args = queryASTNode.getArguments().stream()
-                .map(argument -> Map.entry(argument.getName(), argument.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+          .collect(Collectors.toMap(Argument::getName, Argument::getValue));
 
         // if list then mark flag true & get the type inside the GraphQLList container type
         if (gqlType instanceof GraphQLList) {
