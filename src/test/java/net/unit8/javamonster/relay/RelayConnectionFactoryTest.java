@@ -21,12 +21,21 @@ class RelayConnectionFactoryTest {
     @Test
     void test() {
         Connection<Map<String, Object>> connection = sat.connectionFromArraySlice(
-                List.of(
-                        Map.of("$total", 100, "country", "Japan"),
-                        Map.of("$total", 100, "country", "Germany"),
-                        Map.of("$total", 100, "country", "Czech")
+                java.util.Arrays.asList(
+                        new java.util.HashMap<String, Object>() {{
+                            put("$total", 100);
+                            put("country", "Japan");
+                        }},
+                        new java.util.HashMap<String, Object>() {{
+                            put("$total", 100);
+                            put("country", "Germany");
+                        }},
+                        new java.util.HashMap<String, Object>() {{
+                            put("$total", 100);
+                            put("country", "Czech");
+                        }}
                 ),
-                Map.of("first", new IntValue(new BigInteger("8"))),
+                java.util.Collections.singletonMap("first", new IntValue(new BigInteger("8"))),
                 new ArraySliceMetaInfo.Builder()
                         .arrayLength(3)
                         .build()

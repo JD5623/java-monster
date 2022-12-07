@@ -80,8 +80,8 @@ public class HogeTest {
         GraphQLObjectType userConnectionType = new Relay().connectionType("User",
                 new Relay().edgeType("User", userType,
                         null,
-                        List.of()),
-                List.of(
+                        java.util.Arrays.asList()),
+                java.util.Arrays.asList(
                         // TODO Add total field.
                 ));
         GraphQLObjectType query = GraphQLObjectType.newObject()
