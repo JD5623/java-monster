@@ -25,7 +25,7 @@ public class ObjectCursor {
         try {
             return new ObjectCursor(mapper.readValue(
                     decoder.decode(cursor),
-                    new TypeReference<>() {
+                    new TypeReference<Map<String,Object>>() {
                     }));
         } catch (IOException e) {
             throw new IllegalArgumentException(cursor + " is wrong format.");

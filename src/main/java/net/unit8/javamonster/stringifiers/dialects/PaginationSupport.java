@@ -28,9 +28,7 @@ public interface PaginationSupport {
                 .collect(Collectors.joining());
     }
 
-    Map<Class<?>, String> CAST_TYPES = Map.of(
-            String.class, "TEXT"
-    );
+    Map<Class<?>, String> CAST_TYPES = java.util.Collections.singletonMap(String.class, "TEXT");
 
     default String generateCastExpressionFromValueType(String key, Object val) {
         return Optional.ofNullable(val)
@@ -120,7 +118,7 @@ public interface PaginationSupport {
                 .collect(Collectors.joining(", "));
     }
 
-    Set<String> UNSUPPORTED_LIMIT_ALL = Set.of("mariadb", "oracle", "mysql");
+    Set<String> UNSUPPORTED_LIMIT_ALL = new java.util.HashSet<String>(java.util.Arrays.asList("mariadb", "oracle", "mysql"));
 
     default OffsetPaginationParams interpretForOffsetPaging(TableNode node, Dialect dialect) {
         if (node.getArgs().containsKey("last")) {
